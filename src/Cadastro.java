@@ -113,12 +113,9 @@ public class Cadastro extends JFrame{
 
 
         // buttons
-        JPanel painelButtons = new JPanel(new GridLayout(1,4,10,10));
+        JPanel painelButtons = new JPanel(new GridLayout(1,3,10,10));
         painelButtons.setPreferredSize(new Dimension(400,100));
 
-        btnVoltar = new JButton("Voltar");
-        painelButtons.add(btnVoltar);
-        fonteButtons(btnVoltar);
 
         btnLimpar = new JButton("Limpar");
         painelButtons.add(btnLimpar);
@@ -141,6 +138,9 @@ public class Cadastro extends JFrame{
         btnSair = new JButton("Sair");
         painelButtons.add(btnSair);
         fonteButtons(btnSair);
+            btnSair.addActionListener(e ->{
+                dispose();
+            });
 
         add(lbCadastrar, BorderLayout.NORTH);
         add(painelForm, BorderLayout.CENTER);

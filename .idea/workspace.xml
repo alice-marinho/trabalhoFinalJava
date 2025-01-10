@@ -5,15 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="54f81ee6-29c5-4863-a461-9fbd3a6c5737" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/mysql_connector_j_9_1_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/mysql-connector-j-9.1.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Aluno.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ExemploAbrirPagina.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Trabalho Final.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Trabalho Final.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Cadastro.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Cadastro.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Conexao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Conexao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ExemploAbrirPagina.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ExemploAbrirPagina.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +97,7 @@
       <updated>1736260960494</updated>
       <workItem from="1736260962168" duration="20960000" />
       <workItem from="1736433668265" duration="10504000" />
-      <workItem from="1736525066897" duration="14738000" />
+      <workItem from="1736525066897" duration="15657000" />
     </task>
     <servers />
   </component>

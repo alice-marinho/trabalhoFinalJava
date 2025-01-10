@@ -31,7 +31,7 @@ public class ExemploAbrirPagina extends JFrame {
         gbc.gridwidth = 2;
         painel1.add(mensagem, gbc);
 
-            JButton botaoCadastro = new JButton("Abrir Cadastro");
+            JButton botaoCadastro = new JButton("Cadastrar");
             botaoCadastro.setPreferredSize(new Dimension(200, 60));
             botaoCadastro.addActionListener(e -> {
                 Cadastro cadastro = new Cadastro();
@@ -40,7 +40,7 @@ public class ExemploAbrirPagina extends JFrame {
             });
 
 
-        JButton botaoApresentaDados = new JButton("Abrir ApresentaDados");
+        JButton botaoApresentaDados = new JButton("Matriculas");
         botaoApresentaDados.setPreferredSize(new Dimension(200, 60));
         botaoApresentaDados.addActionListener(e -> {
             ApresentaDados apresentaDados = new ApresentaDados();
