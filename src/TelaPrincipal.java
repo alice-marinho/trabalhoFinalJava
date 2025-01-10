@@ -1,8 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class ExemploAbrirPagina extends JFrame {
-    public ExemploAbrirPagina() {
+public class TelaPrincipal extends JFrame {
+    public TelaPrincipal() {
         setTitle("Página Principal");
         setSize(900, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -64,6 +64,6 @@ public class ExemploAbrirPagina extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new ExemploAbrirPagina().setVisible(true));
+        SwingUtilities.invokeLater(() -> new TelaPrincipal().setVisible(true));
     }
 }
