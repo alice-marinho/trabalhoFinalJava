@@ -1,6 +1,9 @@
-import java.util.Scanner;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -10,10 +13,9 @@ public class Cadastro extends JFrame{
     private JSpinner spnIdade, spnPeso, spnAltura;
     private JTextArea taObjetivo;
     private JButton btnIncluir, btnLimpar, btnExibir, btnSair, btnVoltar;
-    //private List<>
 
     public Cadastro(){
-        setTitle("Academia da Gretchen");
+        setTitle("Academia la Conga");
         setSize(900,800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -51,7 +53,7 @@ public class Cadastro extends JFrame{
 
         gbc.gridx = 1;
         gbc.gridy = 1;
-        spnIdade = new JSpinner(new SpinnerNumberModel(18, 1, 100, 1));
+        spnIdade = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
         spnIdade.setPreferredSize(new Dimension(200, 30));
         centralizarTextoSpinner(spnIdade);
         painelForm.add((spnIdade), gbc);
@@ -64,6 +66,8 @@ public class Cadastro extends JFrame{
         gbc.gridx = 1;
         gbc.gridy = 2;
         spnPeso = new JSpinner(new SpinnerNumberModel(0.00, 0.00, 200.00, 0.50));
+            JSpinner.NumberEditor editor = new JSpinner.NumberEditor(spnPeso, "0.00");
+            spnPeso.setEditor(editor);
         spnPeso.setPreferredSize(new Dimension(200, 30));
         centralizarTextoSpinner(spnPeso);
         painelForm.add((spnPeso), gbc);
@@ -77,6 +81,8 @@ public class Cadastro extends JFrame{
         gbc.gridy = 3;
         spnAltura = new JSpinner(new SpinnerNumberModel(0, 0, 3.0, 0.1));
         spnAltura.setPreferredSize(new Dimension(200, 30));
+            editor = new JSpinner.NumberEditor(spnAltura, "0.00");
+            spnAltura.setEditor(editor);
         centralizarTextoSpinner(spnAltura);
         painelForm.add((spnAltura), gbc);
 
@@ -91,13 +97,19 @@ public class Cadastro extends JFrame{
         taObjetivo.setBorder(new LineBorder(Color.gray));
         painelForm.add(taObjetivo, gbc);
 
+        // incluir
         gbc.gridx = 0;
         gbc.gridy = 5;
         gbc.gridwidth = 2;
         btnIncluir = new JButton("Incluir");
         painelForm.add(btnIncluir, gbc);
 
-
+            btnIncluir.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    cadastrarAluno();
+                }
+            });
 
 
         // buttons
@@ -112,9 +124,19 @@ public class Cadastro extends JFrame{
         painelButtons.add(btnLimpar);
         fonteButtons(btnLimpar);
 
+            btnLimpar.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    limparCampos();
+                }
+            });
+
         btnExibir = new JButton("Exibir Dados");
         painelButtons.add(btnExibir);
         fonteButtons(btnExibir);
+            btnExibir.addActionListener(e -> {
+                new ApresentaDados().setVisible(true);
+            });
 
         btnSair = new JButton("Sair");
         painelButtons.add(btnSair);
@@ -125,15 +147,60 @@ public class Cadastro extends JFrame{
         add(painelButtons, BorderLayout.SOUTH);
     }
 
-
-    public static void centralizarTextoSpinner(JSpinner spinner) {
+    public void centralizarTextoSpinner(JSpinner spinner) {
         JComponent editor = (JComponent) spinner.getEditor();
         JTextField textField = (JTextField) editor.getComponent(0);
         textField.setHorizontalAlignment(JTextField.CENTER);
     }
 
-    public static void fonteButtons(JButton button) {
+    public void fonteButtons(JButton button) {
         button.setFont(new Font("Verdana", Font.BOLD, 15));
     }
 
+    public void cadastrarAluno(){
+        String nome = tfNome.getText().trim();
+        int idade = Integer.parseInt(spnIdade.getValue().toString());
+        float peso = Float.parseFloat(spnPeso.getValue().toString());
+        float altura = Float.parseFloat(spnAltura.getValue().toString());
+        String objetivo = taObjetivo.getText();
+
+        if(nome.isEmpty() || idade <= 0 || altura <= 0 || objetivo.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos corretamente!");
+        }
+
+        else{
+        try(Connection conn = Conexao.getConnection()){
+            if(conn != null){
+                String sql = "INSERT INTO alunos(nome, idade, peso, altura, objetivo) VALUES(?,?,?,?,?)";
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setString(1,nome);
+                stmt.setInt(2,idade);
+                stmt.setFloat(3,peso);
+                stmt.setFloat(4,altura);
+                stmt.setString(5,objetivo);
+
+                int linhasInseridas = stmt.executeUpdate();
+                if(linhasInseridas > 0){
+                    JOptionPane.showMessageDialog(this, "Aluno cadastrado com sucesso!", "Sucesso",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    limparCampos();
+                } else{
+                    JOptionPane.showMessageDialog(this, "Falha na conexão com o banco de dados", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao inserir os dados" + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+
+        }}
+    }
+
+    public void limparCampos(){
+        tfNome.setText("");
+        spnIdade.setValue(0);
+        spnPeso.setValue(0);
+        spnAltura.setValue(0);
+        taObjetivo.setText("");
+    }
 }
